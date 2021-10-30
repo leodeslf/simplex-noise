@@ -1,0 +1,24 @@
+{
+  "name": "@leodeslf/simplex-noise",
+  "version": "1.0.0",
+  "description": "A Simplex Noise library for JavaScript",
+  "main": "simplex.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leodeslf/simplex-noise.git"
+  },
+  "keywords": [
+    "simplex-noise"
+  ],
+  "author": "Leonardo de S.L.F",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leodeslf/simplex-noise/issues"
+  },
+  "homepage": "https://github.com/leodeslf/simplex-noise#readme",
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org",
+    "access": "public"
+  },
+  "type": "module"
+}

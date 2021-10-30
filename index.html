@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>simplex-noise demo</title>
+  <script type="module" src="./simplex.js"></script>
+  <script type="module">
+    import { simplex2D, simplex3D, simplex4D } from './simplex.js';
+
+    let ctx;
+
+    window.addEventListener('load', () => {
+      ctx = document.getElementById('canvas').getContext('2d');
+      draw();
+    });
+
+    let raf = 0;
+    const I = (u, v) => (v * SIDE + u) * 4;
+    const SIDE = 300;
+    const RES = 150;
+    const ROW = SIDE / 3;
+    const SHIFT = .5;
+    const SCALE = .5;
+    const RANGE = 255;
+    const IMAGE_DATA = new ImageData(SIDE, SIDE);
+
+    // Draw 3 "rows of noise", one per each dimention.
+    function draw() {
+      const T = raf * .01;
+      for (let v = 0; v < ROW; v++) {
+        for (let u = 0; u < SIDE; u++) {
+          const index = I(u, v);
+          const U = u / RES;
+          const V = v / RES;
+          const RGB = (simplex2D(U + T, V + T) * SCALE + SHIFT) * RANGE;
+          for (let channel = 0; channel < 3; channel++) {
+            IMAGE_DATA.data[index + channel] = RGB;
+          }
+          IMAGE_DATA.data[index + 3] = RANGE;
+        }
+      }
+      for (let v = ROW; v < ROW * 2; v++) {
+        for (let u = 0; u < SIDE; u++) {
+          const index = I(u, v);
+          const U = u / RES;
+          const V = v / RES;
+          const RGB = (simplex3D(U, V, T) * SCALE + SHIFT) * RANGE;
+          for (let channel = 0; channel < 3; channel++) {
+            IMAGE_DATA.data[index + channel] = RGB;
+          }
+          IMAGE_DATA.data[index + 3] = RANGE;
+        }
+      }
+      for (let v = ROW * 2; v < ROW * 3; v++) {
+        for (let u = 0; u < SIDE; u++) {
+          const index = I(u, v);
+          const U = u / RES;
+          const V = v / RES;
+          const RGB = (simplex4D(U, V, T, T) * SCALE + SHIFT) * RANGE;
+          for (let channel = 0; channel < 3; channel++) {
+            IMAGE_DATA.data[index + channel] = RGB;
+          }
+          IMAGE_DATA.data[index + 3] = RANGE;
+        }
+      }
+      ctx.clearRect(0, 0, SIDE, SIDE);
+      ctx.putImageData(IMAGE_DATA, 0, 0);
+      raf = requestAnimationFrame(draw);
+    }
+  </script>
+  <style>
+    body {
+      background-color: black;
+      color: grey;
+    }
+
+    canvas {
+      outline: 1px solid grey;
+      outline-offset: -1px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <canvas width="300" height="300" id="canvas"></canvas>
+  <p>Demo 2D, 3D, and 4D (top to bottom).</p>
+</body>
+
+</html>
