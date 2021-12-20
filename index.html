@@ -6,6 +6,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>simplex-noise demo</title>
+  <style>
+    body {
+      background-color: black;
+      color: grey;
+    }
+
+    canvas {
+      outline: 1px solid grey;
+      outline-offset: -1px;
+    }
+
+  </style>
   <script type="module" src="./simplex.js"></script>
   <script type="module">
     import { simplex2D, simplex3D, simplex4D } from './simplex.js';
@@ -71,18 +83,6 @@
       raf = requestAnimationFrame(draw);
     }
   </script>
-  <style>
-    body {
-      background-color: black;
-      color: grey;
-    }
-
-    canvas {
-      outline: 1px solid grey;
-      outline-offset: -1px;
-    }
-
-  </style>
 </head>
 
 <body>
