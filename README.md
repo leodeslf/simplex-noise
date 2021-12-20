@@ -1,17 +1,17 @@
 # Simplex Noise
 
 ```txt
-
-
-
-
-
-
-
-
-
-
-
+       ______________
+      /\            /\
+     /\/\  ________/\/\
+    /\/\/\/        \/\/    
+    \/\/\/\_________\/
+     \/\/           /\
+      \/_________  /\/\
+      /\         \/\/\/\
+     /\/\________/\/\/\/
+     \/\/          \/\/
+      \/____________\/
 
 ```
 
@@ -43,7 +43,7 @@ console.debug(simplex4D(0, 3, 6, 9.115)); // 0.17172544402554224
 
 ## Author
 
-[Leonardo de S.L.F](https://github.com/leodeslf "GitHub profile").
+[Leonardo de S.L.F](https://github.com/leodeslf "GitHub profile"), original implementation by Stefan Gustavson (Java).
 
 ## License
 
