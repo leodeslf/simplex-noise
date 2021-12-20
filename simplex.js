@@ -1,6 +1,4 @@
 /**
- * JavaScript version by Leonardo de S.L.F, 17/10/2021 (http://leodeslf.com/).
- * 
  * Based on Stefan Gustavson's (stegu@itn.liu.se) implementation and Peter
  * Eastman's optimization (peastman@drizzle.stanford.edu) in Java (09/03/2012).
  * 
@@ -8,6 +6,8 @@
  * 
  * This code was placed in the public domain by its original author, Stefan
  * Gustavson. You may use it as you see fit, but attribution is appreciated.
+ * 
+ * JavaScript version by Leonardo de S.L.F, 17/10/2021 (http://leodeslf.com/).
  */
 
 function dot2(g, x, y) {
@@ -66,7 +66,6 @@ const grad4 = [
 ];
 
 // Permutation table.
-
 const p = [
   151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140,
   36, 103, 30, 69, 142, 8, 99, 37, 240, 21, 10, 23, 190, 6, 148, 247, 120, 234,
@@ -87,7 +86,6 @@ const p = [
 ];
 
 // To remove the need for index wrapping, double the permutation table length.
-
 const perm = [];
 const permMod12 = [];
 for (let i = 0; i < 512; i++) {
@@ -96,7 +94,6 @@ for (let i = 0; i < 512; i++) {
 }
 
 // Skewing and unskewing factors for 2, 3, and 4 dimensions.
-
 const F2 = .5 * (Math.sqrt(3) - 1);
 const G2 = (3 - Math.sqrt(3)) / 6;
 const F3 = 1 / 3;
@@ -105,7 +102,6 @@ const F4 = (Math.sqrt(5) - 1) / 4;
 const G4 = (5 - Math.sqrt(5)) / 20;
 
 // 2D simplex noise.
-
 function simplex2D(x, y) {
   let n0, n1, n2; // Noise contributions from the three corners.
 
@@ -129,7 +125,7 @@ function simplex2D(x, y) {
   let i1, j1; // Offsets for second (middle) corner of simplex in (i,j) coords
 
   if (x0 > y0) { i1 = 1; j1 = 0; } // lower triangle, XY order: (0,0)->(1,0)->(1,1).
-  else { i1 = 0; j1 = 1; }      // upper triangle, YX order: (0,0)->(0,1)->(1,1).
+  else { i1 = 0; j1 = 1; } // upper triangle, YX order: (0,0)->(0,1)->(1,1).
 
   /**
    * A step of (1,0) in (i,j) means a step of (1-c,-c) in (x,y), and
@@ -156,7 +152,7 @@ function simplex2D(x, y) {
   if (t0 < 0) n0 = 0.0;
   else {
     t0 *= t0;
-    n0 = t0 * t0 * dot2(grad3[gi0], x0, y0);  // (x,y) of grad3 used for 2D gradient.
+    n0 = t0 * t0 * dot2(grad3[gi0], x0, y0); // (x,y) of grad3 used for 2D gradient.
   }
 
   let t1 = 0.5 - x1 * x1 - y1 * y1;
@@ -179,7 +175,6 @@ function simplex2D(x, y) {
 }
 
 // 3D simplex noise
-
 function simplex3D(x, y, z) {
   let n0, n1, n2, n3; // Noise contributions from the four corners.
 
@@ -210,7 +205,7 @@ function simplex3D(x, y, z) {
     else if (x0 >= z0) { i1 = 1; j1 = 0; k1 = 0; i2 = 1; j2 = 0; k2 = 1; } // X Z Y order.
     else { i1 = 0; j1 = 0; k1 = 1; i2 = 1; j2 = 0; k2 = 1; } // Z X Y order.
   }
-  else { // x0<y0.
+  else {
     if (y0 < z0) { i1 = 0; j1 = 0; k1 = 1; i2 = 0; j2 = 1; k2 = 1; } // Z Y X order.
     else if (x0 < z0) { i1 = 0; j1 = 1; k1 = 0; i2 = 0; j2 = 1; k2 = 1; } // Y Z X order.
     else { i1 = 0; j1 = 1; k1 = 0; i2 = 1; j2 = 1; k2 = 0; } // Y X Z order.
@@ -299,7 +294,7 @@ function simplex4D(x, y, z, w) {
   const Z0 = k - t;
   const W0 = l - t;
 
-  const x0 = x - X0;  // The x,y,z,w distances from the cell origin.
+  const x0 = x - X0; // The x,y,z,w distances from the cell origin.
   const y0 = y - Y0;
   const z0 = z - Z0;
   const w0 = w - W0;
